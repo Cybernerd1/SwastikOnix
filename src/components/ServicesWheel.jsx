@@ -8,7 +8,7 @@ const ServicesWheel = () => {
   const [activeCategory, setActiveCategory] = useState('Design');
   const wheelRef = useRef(null);
 
-  const categories = ['AI', 'Design', 'Tech', 'Automation'];
+  const categories = ['AI', 'Design', 'Automation'];
 
   // Content provided by user
   const servicesData = {
@@ -31,12 +31,9 @@ const ServicesWheel = () => {
         title: "Graphic Design",
         description: "We create visually striking graphics that communicate clearly, elevate your brand, and make every asset, from social posts to ads, instantly stand out."
       },
-      {
-        title: "Game Design",
-        description: "We craft engaging game worlds, polished art, and seamless interactions, bringing your gameplay ideas to life with clarity, style, and player-focused design."
-      }
+      
     ],
-    Tech: null, // Placeholder or same structure
+   // Placeholder or same structure
     Automation: [
       {
         title: "Workflow Automation",
