@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import servicesVideo from '../assets/services-bg.mp4';
 import dialWheel from '../assets/DialWheel.png';
@@ -10,113 +10,149 @@ const ServicesWheel = () => {
 
   const categories = ['AI', 'Design', 'Tech', 'Automation'];
 
-  // Content for the "Design" category as requested
-  const designServices = [
-    {
-      title: "UI/UX Design",
-      description: "We design intuitive, elegant interfaces backed by smart user flows, making your product easier to use, faster to navigate, and more enjoyable for your users."
-    },
-    {
-      title: "Graphic Design",
-      description: "We create visually striking graphics that communicate clearly, elevate your brand, and make every asset, from social posts to ads, instantly stand out."
-    },
-    {
-      title: "Game Design",
-      description: "We craft engaging game worlds, polished art, and seamless interactions, bringing your gameplay ideas to life with clarity, style, and player-focused design."
-    }
-  ];
+  // Content provided by user
+  const servicesData = {
+    AI: [
+      {
+        title: "AI Development",
+        description: "We build practical AI systems that automate tasks, enhance decision-making, and bring intelligence to your product without the unnecessary hype."
+      },
+      {
+        title: "Machine Learning models",
+        description: "We train specialized models to process complex data, ensuring high accuracy and tailored insights for your specific business needs." 
+      }
+    ],
+    Design: [
+      {
+        title: "UI/UX Design",
+        description: "We design intuitive, elegant interfaces backed by smart user flows, making your product easier to use, faster to navigate, and more enjoyable for your users."
+      },
+      {
+        title: "Graphic Design",
+        description: "We create visually striking graphics that communicate clearly, elevate your brand, and make every asset, from social posts to ads, instantly stand out."
+      },
+      {
+        title: "Game Design",
+        description: "We craft engaging game worlds, polished art, and seamless interactions, bringing your gameplay ideas to life with clarity, style, and player-focused design."
+      }
+    ],
+    Tech: null, // Placeholder or same structure
+    Automation: [
+      {
+        title: "Workflow Automation",
+        description: "We streamline repetitive tasks and build automated workflows that save time, reduce errors, and keep your operations running smoothly."
+      },
+      {
+        title: "Process Optimization",
+        description: "We analyze your systems and automate the bottlenecks, boosting efficiency, cutting manual work, and improving overall productivity."
+      }
+    ]
+  };
 
   const handleCategoryClick = (category) => {
     setActiveCategory(category);
-    // Rotate wheel based on index? 
-    // AI=0, Design=90, Tech=180, Automation=270
-    const index = categories.indexOf(category);
-    if(wheelRef.current) {
-        wheelRef.current.style.transform = `rotate(${index * 90}deg)`;
-    }
   };
+
+  useEffect(() => {
+    const index = categories.indexOf(activeCategory);
+    // Rotate 90 degrees per index to align (Clock effect simulation)
+    // AI=0, Design=-90, etc.
+    if(wheelRef.current) {
+        const rotation = index * -90; 
+        wheelRef.current.style.transform = `translateY(-50%) rotate(${rotation}deg)`;
+    }
+  }, [activeCategory]);
 
   return (
     <section className="relative h-screen w-full overflow-hidden bg-black flex flex-col justify-center">
-      {/* Background Video */}
+      {/* 1. Background Video */}
       <div className="absolute inset-0 z-0">
         <video 
           autoPlay 
           loop 
           muted 
           playsInline 
-          className="w-full h-full object-cover opacity-30 scale-110" // Zoom out/scale effect
+          className="w-full h-full object-cover opacity-50 scale-110" 
         >
           <source src={servicesVideo} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-web-purple/20" />
+        {/* Gradient Overlay for text readability */}
+        <div className="absolute inset-0 bg-black/60" />
       </div>
 
-      {/* Main Wheel/Graphic (Decorative/Abstract now) */}
-      <div className="absolute -left-[20%] top-1/2 -translate-y-1/2 w-[80vh] h-[80vh] opacity-20 pointer-events-none transition-transform duration-1000 ease-in-out" ref={wheelRef}>
-         <img src={dialWheel} alt="" className="w-full h-full object-contain spin-slow" />
+      {/* Wheel Image - Rotates on Click, NOT Scroll */}
+      <div 
+        ref={wheelRef} 
+        className="absolute -left-[200px] md:-left-[100px] top-1/2 w-[800px] h-[800px] md:w-[1000px] md:h-[1000px] transition-transform duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] z-10 pointer-events-none"
+        style={{ transformOrigin: "center", transform: "translateY(-50%)" }}
+      >
+         <img src={dialWheel} alt="" className="w-full h-full object-contain opacity-40" />
       </div>
 
-      {/* Hands Line / Ruler Graphic */}
-      <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 z-10 opacity-50 pointer-events-none">
+      {/* 2. Hands Line (Ruler) */}
+      <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 z-20 pointer-events-none mix-blend-overlay opacity-80">
           <img src={handsLine} alt="" className="w-full h-auto object-cover" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-20 h-full flex items-center">
-        <div className="w-full h-full flex flex-col md:flex-row">
+      {/* Content Container - Aligned with the Line */}
+      <div className="container mx-auto px-6 relative z-30 h-full flex items-center">
+         <div className="w-full md:pl-[35%] flex flex-col">
             
-            {/* Left/Bottom Content Area */}
-            <div className="flex-1 flex flex-col justify-center md:pr-20">
-                <h2 className="text-6xl md:text-8xl font-bold mb-12 text-white/10 tracking-widest absolute top-24 left-6 pointer-events-none">Services</h2>
-                
-                {activeCategory === 'Design' ? (
-                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
-                        {designServices.map((service, index) => (
-                            <motion.div 
-                                key={service.title}
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.2 }}
-                                className="group relative"
-                            > 
-                                {/* Vertical Separator */}
-                                {/* <div className="absolute -left-4 top-0 bottom-0 w-[1px] bg-white/10 group-hover:bg-web-purple transition-colors" /> */}
-                                
-                                <h3 className="text-3xl font-bold mb-4 leading-tight group-hover:text-web-purple transition-colors duration-300">
-                                    {service.title.split(' ').map((word, i) => (
-                                        <span key={i} className="block">{word}</span>
-                                    ))}
-                                </h3>
-                                <p className="text-sm text-gray-400 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 absolute top-full mt-4 md:static md:mt-0 md:opacity-100">
-                                    {service.description}
-                                </p>
-                            </motion.div>
-                        ))}
-                     </div>
-                ) : (
-                    <div className="flex items-center justify-center h-full">
-                        <p className="text-2xl text-gray-500 italic">Content for {activeCategory} coming soon...</p>
-                    </div>
-                )}
-            </div>
-
-            {/* Right Side Navigation */}
-            <div className="md:w-48 flex flex-col justify-center items-end pr-10 space-y-12">
-                {categories.map((cat) => (
+            {/* Categories Navigation */}
+            <div className="flex gap-10 mb-16 border-b border-white/10 pb-4 w-fit">
+                {categories.map(cat => (
                     <button 
                         key={cat}
                         onClick={() => handleCategoryClick(cat)}
-                        className={`text-2xl md:text-4xl font-bold transition-all duration-500 ${
-                            activeCategory === cat 
-                            ? 'text-white scale-110 translate-x-0' 
-                            : 'text-gray-600 hover:text-gray-400 translate-x-4'
+                        className={`text-2xl font-bold tracking-wider transition-colors duration-300 ${
+                            activeCategory === cat ? 'text-web-purple' : 'text-gray-500 hover:text-white'
                         }`}
                     >
                         {cat}
                     </button>
                 ))}
             </div>
-        </div>
+
+            {/* 3. Dynamic Content Display */}
+            <div className="min-h-[300px]">
+                <AnimatePresence mode="wait">
+                    {servicesData[activeCategory] ? (
+                        <motion.div 
+                            key={activeCategory}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            transition={{ duration: 0.4 }}
+                            className="space-y-10"
+                        >
+                           {servicesData[activeCategory].map((item, idx) => (
+                               <div key={idx}>
+                                   <div className="flex items-baseline gap-4 mb-2">
+                                       <div className="w-12 h-[1px] bg-web-purple hidden md:block" /> {/** Decorative line connector */}
+                                       <h3 className="text-4xl font-bold text-white leading-tight">
+                                           {item.title.split('\n').map((l,i) => <span key={i} className="block">{l}</span>)}
+                                       </h3>
+                                   </div>
+                                   <p className="text-gray-300 max-w-xl text-lg pl-0 md:pl-16">
+                                       {item.description}
+                                   </p>
+                               </div>
+                           ))}
+                        </motion.div>
+                    ) : (
+                        <motion.div 
+                            key="empty"
+                            initial={{ opacity: 0 }} 
+                            animate={{ opacity: 1 }}
+                            className="text-gray-500 italic text-xl"
+                        >
+                            Content for {activeCategory} coming soon.
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
+
+         </div>
       </div>
     </section>
   );
