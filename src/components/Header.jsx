@@ -10,10 +10,10 @@ const Header = () => {
       className="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference"
     >
       <div className="text-2xl font-bold tracking-tighter">
-        Swastik Onix
+        SwastikOnix
       </div>
       <nav className="hidden md:flex space-x-8 text-sm font-medium">
-        <a href="#" className="hover:text-web-purple transition-colors">Services</a>
+        <a href="#" className="hover:text-web-purple transition-colors">All Services</a>
         <a href="#" className="hover:text-web-purple transition-colors">Projects</a>
         <a href="#" className="hover:text-web-purple transition-colors">About</a>
       </nav>
