@@ -3,14 +3,14 @@ import { motion } from 'framer-motion';
 
 const Header = () => {
   return (
-    <motion.header 
+    <motion.header
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       className="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference"
     >
       <div className="text-2xl font-bold tracking-tighter">
-        Web Solutions
+        Swastik Onix
       </div>
       <nav className="hidden md:flex space-x-8 text-sm font-medium">
         <a href="#" className="hover:text-web-purple transition-colors">Services</a>

@@ -40,7 +40,7 @@ const WhoWeAre = () => {
                     className="space-y-6 text-gray-300 text-lg md:text-xl leading-relaxed"
                 >
                     <p className="font-semibold text-white">
-                        Web3Solutions isn't just another tech agency, we're builders who turn complex ideas into scalable, meaningful products.
+                        Swastik Onix isn't just another tech agency, we're builders who turn complex ideas into scalable, meaningful products.
                     </p>
                     <p>
                         For 4+ years, we've helped startups and growing companies craft software that's reliable, intuitive, and actually solves problems.
