@@ -14,7 +14,7 @@ const RotatingWords = () => {
   }, []);
 
   return (
-    <div className="h-[1.2em] overflow-hidden inline-flex items-center ml-3 relative top-2">
+    <div className="h-[1.2em] overflow-hidden flex justify-center items-center mt-2">
       <AnimatePresence mode="wait">
         <motion.span
           key={words[index]}
@@ -56,9 +56,9 @@ const Hero = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="text-6xl md:text-8xl font-bold tracking-tighter mb-6 leading-tight"
+          className="text-6xl md:text-8xl font-bold tracking-tighter mb-6 leading-tight flex flex-col items-center"
         >
-          We Build <br className="md:hidden" />
+          <span>We Build</span>
           <RotatingWords />
         </motion.h1>
         
