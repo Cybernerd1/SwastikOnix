@@ -48,7 +48,7 @@ const Projects = () => {
   ];
 
   return (
-    <section className="py-24 overflow-x-hidden">
+    <section id="projects" className="py-24 overflow-x-hidden">
       <div className="container mx-auto px-6 mb-12">
         <h2 className="text-4xl md:text-5xl font-bold mb-4">Selected Work</h2>
         <p className="text-gray-400">Pioneering digital landscapes with precision.</p>

@@ -13,9 +13,10 @@ const Header = () => {
         SwastikOnix
       </div>
       <nav className="hidden md:flex space-x-8 text-sm font-medium">
-        <a href="#" className="hover:text-web-purple transition-colors">All Services</a>
-        <a href="#" className="hover:text-web-purple transition-colors">Projects</a>
-        <a href="#" className="hover:text-web-purple transition-colors">About</a>
+        <a href="#features" className="hover:text-web-purple transition-colors">Why Us</a>
+        <a href="#services" className="hover:text-web-purple transition-colors">Services</a>
+        <a href="#projects" className="hover:text-web-purple transition-colors">Projects</a>
+        <a href="#contact" className="hover:text-web-purple transition-colors">Contact</a>
       </nav>
       <button className="hidden md:block px-5 py-2 border border-white/20 rounded-full text-sm hover:bg-white hover:text-black transition-all duration-300">
         Contact

@@ -5,35 +5,73 @@ import dialWheel from '../assets/DialWheel.png';
 import handsLine from '../assets/hands_line.png';
 
 const ServicesWheel = () => {
-  const [activeCategory, setActiveCategory] = useState('Design');
+  const [activeCategory, setActiveCategory] = useState('Web');
   const wheelRef = useRef(null);
 
-  const categories = ['AI', 'Design', 'Automation'];
+  const categories = ['Web', 'App', 'Web3', 'ML', 'AI', 'Design', 'Automation'];
 
   // Content provided by user
   const servicesData = {
+    Web: [
+      {
+        title: "Web Development",
+        description: "We build high-performance, responsive websites and web applications using modern frameworks like React and Next.js, ensuring a seamless user experience across all devices."
+      },
+      {
+        title: "E-commerce Solutions",
+        description: "Custom online stores built for conversion, with secure payment integrations and intuitive product management systems."
+      }
+    ],
+    App: [
+      {
+        title: "Mobile App Development",
+        description: "We develop native and cross-platform mobile applications that are fast, secure, and user-friendly, helping you reach your audience on iOS and Android."
+      },
+      {
+        title: "App UI/UX Design",
+        description: "Crafting engaging mobile experiences with a focus on usability, performance, and platform-specific design patterns."
+      }
+    ],
+    Web3: [
+      {
+        title: "Blockchain Development",
+        description: "We specialize in blockchain technology, developing decentralized applications (DApps), smart contracts, and Web3 integrations."
+      },
+      {
+        title: "Smart Contract Audits",
+        description: "Ensuring the security and reliability of your blockchain protocols through rigorous testing and code analysis."
+      }
+    ],
+    ML: [
+      {
+        title: "Machine Learning Models",
+        description: "We leverage advanced machine learning algorithms to provide predictive analytics, natural language processing, and computer vision solutions."
+      },
+      {
+        title: "Data Science & Analytics",
+        description: "Turning raw data into actionable insights through statistical modeling and deep data exploration."
+      }
+    ],
     AI: [
       {
         title: "AI Development",
         description: "We build practical AI systems that automate tasks, enhance decision-making, and bring intelligence to your product without the unnecessary hype."
       },
       {
-        title: "Machine Learning models",
-        description: "We train specialized models to process complex data, ensuring high accuracy and tailored insights for your specific business needs." 
+        title: "Generative AI Solutions",
+        description: "Implementing cutting-edge LLMs and generative models to create unique content and interactive experiences."
       }
     ],
     Design: [
       {
         title: "UI/UX Design",
-        description: "We design intuitive, elegant interfaces backed by smart user flows, making your product easier to use, faster to navigate, and more enjoyable for your users."
+        description: "We design intuitive, elegant interfaces backed by smart user flows, making your product easier to use and faster to navigate."
       },
       {
-        title: "Graphic Design",
-        description: "We create visually striking graphics that communicate clearly, elevate your brand, and make every asset, from social posts to ads, instantly stand out."
-      },
-      
+        title: "Brand Identity",
+        description: "Creating cohesive visual identities that resonate with your audience and strengthen your market presence."
+      }
     ],
-   // Placeholder or same structure
     Automation: [
       {
         title: "Workflow Automation",
@@ -41,7 +79,7 @@ const ServicesWheel = () => {
       },
       {
         title: "Process Optimization",
-        description: "We analyze your systems and automate the bottlenecks, boosting efficiency, cutting manual work, and improving overall productivity."
+        description: "We analyze your systems and automate the bottlenecks, boosting efficiency and cutting manual work."
       }
     ]
   };
@@ -52,16 +90,15 @@ const ServicesWheel = () => {
 
   useEffect(() => {
     const index = categories.indexOf(activeCategory);
-    // Rotate 90 degrees per index to align (Clock effect simulation)
-    // AI=0, Design=-90, etc.
+    // Rotate based on number of categories to align
     if(wheelRef.current) {
-        const rotation = index * -90; 
+        const rotation = index * -(360 / categories.length); 
         wheelRef.current.style.transform = `translateY(-50%) rotate(${rotation}deg)`;
     }
-  }, [activeCategory]);
+  }, [activeCategory, categories]);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-black flex flex-col justify-center">
+    <section id="services" className="relative h-screen w-full overflow-hidden bg-black flex flex-col justify-center">
       {/* 1. Background Video */}
       <div className="absolute inset-0 z-0">
         <video 
@@ -96,12 +133,12 @@ const ServicesWheel = () => {
          <div className="w-full md:pl-[35%] flex flex-col">
             
             {/* Categories Navigation */}
-            <div className="flex gap-10 mb-16 border-b border-white/10 pb-4 w-fit">
+            <div className="flex gap-10 mb-16 border-b border-white/10 pb-4 w-full overflow-x-auto no-scrollbar">
                 {categories.map(cat => (
                     <button 
                         key={cat}
                         onClick={() => handleCategoryClick(cat)}
-                        className={`text-2xl font-bold tracking-wider transition-colors duration-300 ${
+                        className={`text-2xl font-bold tracking-wider transition-colors duration-300 flex-shrink-0 ${
                             activeCategory === cat ? 'text-web-purple' : 'text-gray-500 hover:text-white'
                         }`}
                     >
