@@ -17,7 +17,7 @@ const RotatingWords = () => {
     <div className="h-[1.2em] overflow-hidden flex justify-center items-center mt-2">
       <AnimatePresence mode="wait">
         <motion.span
-          key={words[index]}
+          key={words[index]}  
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -50, opacity: 0 }}
@@ -41,13 +41,11 @@ const Hero = () => {
           loop 
           muted 
           playsInline 
-          className="w-full h-full object-cover opacity-60"
+          className="w-full h-full object-cover opacity-100 saturate-125"
         >
           <source src={heroVideo} type="video/mp4" />
         </video>
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black" />
-        <div className="absolute inset-0 bg-black/20" />
+        {/* Gradient Overlay Removed for vibrancy */}
       </div>
 
       {/* Content */}
