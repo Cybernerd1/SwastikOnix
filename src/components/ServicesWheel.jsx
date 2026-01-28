@@ -94,24 +94,34 @@ const ServicesWheel = () => {
     if(wheelRef.current) {
         const rotation = index * -(360 / categories.length); 
         wheelRef.current.style.transform = `translateY(-50%) rotate(${rotation}deg)`;
+        
+        // Play dial sound
+        try {
+            const audio = new Audio('/dial_sound.mp3');
+            audio.volume = 0.5;
+            audio.play().catch(e => console.log("Audio play failed (interaction required or file missing):", e));
+        } catch (error) {
+            console.error("Error initializing audio:", error);
+        }
     }
   }, [activeCategory, categories]);
 
   return (
     <section id="services" className="relative h-screen w-full overflow-hidden bg-black flex flex-col justify-center">
-      {/* 1. Background Video */}
+      {/* 1. Background Video - Vibrant & Glowy */}
       <div className="absolute inset-0 z-0">
         <video 
           autoPlay 
           loop 
           muted 
           playsInline 
-          className="w-full h-full object-cover opacity-50 scale-110" 
+          className="w-full h-full object-cover opacity-80 scale-110 saturate-150 contrast-110" 
         >
           <source src={servicesVideo} type="video/mp4" />
         </video>
-        {/* Gradient Overlay for text readability */}
-        <div className="absolute inset-0 bg-black/60" />
+        {/* Removed Dark Overlay for maximum vibrancy */}
+        {/* Subtle radial gradient for text readability without killing the glow */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent" />
       </div>
 
       {/* Wheel Image - Rotates on Click, NOT Scroll */}
@@ -120,12 +130,13 @@ const ServicesWheel = () => {
         className="absolute -left-[200px] md:-left-[100px] top-1/2 w-[800px] h-[800px] md:w-[1000px] md:h-[1000px] transition-transform duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] z-10 pointer-events-none"
         style={{ transformOrigin: "center", transform: "translateY(-50%)" }}
       >
-         <img src={dialWheel} alt="" className="w-full h-full object-contain opacity-40" />
+         {/* Added glowing drop shadow to the wheel */}
+         <img src={dialWheel} alt="" className="w-full h-full object-contain opacity-60 drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]" />
       </div>
 
       {/* 2. Hands Line (Ruler) */}
-      <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 z-20 pointer-events-none mix-blend-overlay opacity-80">
-          <img src={handsLine} alt="" className="w-full h-auto object-cover" />
+      <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 z-20 pointer-events-none mix-blend-overlay opacity-100">
+          <img src={handsLine} alt="" className="w-full h-auto object-cover drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
       </div>
 
       {/* Content Container - Aligned with the Line */}
@@ -133,16 +144,24 @@ const ServicesWheel = () => {
          <div className="w-full md:pl-[35%] flex flex-col">
             
             {/* Categories Navigation */}
-            <div className="flex gap-10 mb-16 border-b border-white/10 pb-4 w-full overflow-x-auto no-scrollbar">
+            <div className="flex gap-10 mb-16 border-b border-white/20 pb-4 w-full overflow-x-auto no-scrollbar relative">
                 {categories.map(cat => (
                     <button 
                         key={cat}
                         onClick={() => handleCategoryClick(cat)}
-                        className={`text-2xl font-bold tracking-wider transition-colors duration-300 flex-shrink-0 ${
-                            activeCategory === cat ? 'text-web-purple' : 'text-gray-500 hover:text-white'
+                        className={`text-2xl font-bold tracking-wider transition-all duration-300 flex-shrink-0 relative group ${
+                            activeCategory === cat ? 'text-white scale-110' : 'text-gray-400 hover:text-white'
                         }`}
                     >
                         {cat}
+                        {activeCategory === cat && (
+                            <motion.div 
+                                layoutId="activeGlow"
+                                className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-3 h-3 bg-web-purple rounded-full blur-[4px] shadow-[0_0_20px_#7000ff]"
+                            />
+                        )}
+                        {/* Hover Dot */}
+                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-2 h-2 bg-white/50 rounded-full blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </button>
                 ))}
             </div>
