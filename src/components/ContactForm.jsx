@@ -21,7 +21,7 @@ const ContactForm = () => {
         throw new Error('Supabase client not initialized. Please check your .env file.');
       }
 
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('submissions')
         .insert([
           { 
@@ -30,13 +30,27 @@ const ContactForm = () => {
             project_type: formData.projectType, 
             requirements: formData.requirements 
           }
-        ]);
+        ])
+        .select();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error details:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
+        throw error;
+      }
+
+      console.log('Form submitted successfully:', data);
       setStatus('success');
       setFormData({ name: '', email: '', projectType: 'Web', requirements: '' });
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('Error submitting form:', {
+        message: error.message,
+        error: error
+      });
       setStatus('error');
     }
   };
@@ -139,9 +153,19 @@ const ContactForm = () => {
                 </div>
 
                 {status === 'error' && (
-                  <div className="flex items-center gap-3 text-red-400 bg-red-400/10 p-4 rounded-xl border border-red-400/20">
-                    <AlertCircle className="w-5 h-5" />
-                    <p>Something went wrong. Please try again or contact us directly.</p>
+                  <div className="flex items-start gap-3 text-red-400 bg-red-400/10 p-4 rounded-xl border border-red-400/20">
+                    <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold mb-1">Something went wrong</p>
+                      <p className="text-sm text-red-300">
+                        Please check the browser console for details. Common issues:
+                      </p>
+                      <ul className="text-sm text-red-300 mt-2 ml-4 list-disc space-y-1">
+                        <li>Invalid Supabase credentials (check your .env file)</li>
+                        <li>Database table not created or incorrect permissions</li>
+                        <li>Network connectivity issues</li>
+                      </ul>
+                    </div>
                   </div>
                 )}
 
