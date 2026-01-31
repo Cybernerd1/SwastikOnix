@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS public.submissions (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   full_name TEXT NOT NULL,
   email TEXT NOT NULL,
+  phone TEXT NOT NULL,
   project_type TEXT NOT NULL,
   requirements TEXT NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,

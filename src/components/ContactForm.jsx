@@ -7,6 +7,7 @@ const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     projectType: 'Web',
     requirements: '',
   });
@@ -26,7 +27,8 @@ const ContactForm = () => {
         .insert([
           { 
             full_name: formData.name, 
-            email: formData.email, 
+            email: formData.email,
+            phone: formData.phone, 
             project_type: formData.projectType, 
             requirements: formData.requirements 
           }
@@ -45,7 +47,7 @@ const ContactForm = () => {
 
       console.log('Form submitted successfully:', data);
       setStatus('success');
-      setFormData({ name: '', email: '', projectType: 'Web', requirements: '' });
+      setFormData({ name: '', email: '', phone: '', projectType: 'Web', requirements: '' });
     } catch (error) {
       console.error('Error submitting form:', {
         message: error.message,
@@ -118,6 +120,18 @@ const ContactForm = () => {
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
                     />
                   </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-400 ml-1">Phone Number</label>
+                    <input 
+                      required
+                      type="tel" 
+                      placeholder="10 digit mobile number"
+                      pattern="^(?:\+91|0)?[6-9]\d{9}$"
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-web-purple transition-colors text-white"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    />
+                  </div>
                 </div>
 
                 <div className="space-y-2">
@@ -152,7 +166,7 @@ const ContactForm = () => {
                   />
                 </div>
 
-                {status === 'error' && (
+                {/* {status === 'error' && (
                   <div className="flex items-start gap-3 text-red-400 bg-red-400/10 p-4 rounded-xl border border-red-400/20">
                     <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
                     <div>
@@ -167,7 +181,7 @@ const ContactForm = () => {
                       </ul>
                     </div>
                   </div>
-                )}
+                )} */}
 
                 <button 
                   disabled={status === 'loading'}
