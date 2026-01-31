@@ -39,10 +39,11 @@ const Footer = () => {
             <ul className="space-y-4 text-gray-400 text-sm">
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                <span>hello@Swastik Onixs.com</span>
+                <a href="mailto:swastikonix@gmail.com" className="hover:text-white transition-colors">swastikonix@gmail.com</a>
               </li>
-              <li>Based in San Francisco, CA</li>
-              <li>Open Global Collaborations</li>
+              <li>
+                  <a href="tel:+918919753219" className="hover:text-white transition-colors">+91 891 975 3219</a>
+              </li>
             </ul>
           </div>
         </div>

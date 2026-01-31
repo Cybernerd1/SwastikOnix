@@ -18,9 +18,9 @@ const Header = () => {
         <a href="#projects" className="hover:text-web-purple transition-colors">Projects</a>
         <a href="#contact" className="hover:text-web-purple transition-colors">Contact</a>
       </nav>
-      <button className="hidden md:block px-6 py-2.5 border border-white/20 rounded-full text-base font-medium hover:bg-white hover:text-black transition-all duration-300 text-white">
+      <a href="#contact" className="hidden md:block px-6 py-2.5 border border-white/20 rounded-full text-base font-medium hover:bg-white hover:text-black transition-all duration-300 text-white">
         Contact
-      </button>
+      </a>
     </motion.header>
   );
 };

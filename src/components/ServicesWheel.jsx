@@ -5,81 +5,100 @@ import dialWheel from '../assets/DialWheel.png';
 import handsLine from '../assets/hands_line.png';
 
 const ServicesWheel = () => {
-  const [activeCategory, setActiveCategory] = useState('Web');
+  const [activeCategory, setActiveCategory] = useState('Web & App Development');
   const wheelRef = useRef(null);
 
-  const categories = ['Web', 'App', 'Web3', 'ML', 'AI', 'Design', 'Automation'];
+  const categories = [
+    'Web & App Development', 
+    'UI / UX Design', 
+    'Skill Training', 
+    'Machine Learning Engineer', 
+    'AI Engineer', 
+    'Data Scientist', 
+    'Data Analyst', 
+    'Data Engineer'
+  ];
 
   // Content provided by user
   const servicesData = {
-    Web: [
+    'Web & App Development': [
       {
-        title: "Web Development",
-        description: "We build high-performance, responsive websites and web applications using modern frameworks like React and Next.js, ensuring a seamless user experience across all devices."
+        title: "Web & App Solutions",
+        description: "We deliver full-cycle development services, building responsive websites and high-performance mobile apps tailored to your business needs."
       },
       {
-        title: "E-commerce Solutions",
-        description: "Custom online stores built for conversion, with secure payment integrations and intuitive product management systems."
+        title: "Full Stack Engineering",
+        description: "Expertising in modern stacks like MERN, Next.js, and Flutter to create scalable, secure, and robust digital ecosystems."
       }
     ],
-    App: [
+    'UI / UX Design': [
       {
-        title: "Mobile App Development",
-        description: "We develop native and cross-platform mobile applications that are fast, secure, and user-friendly, helping you reach your audience on iOS and Android."
+        title: "User-Centric Interfaces",
+        description: "Designing intuitive and aesthetically pleasing interfaces that prioritize user experience and drive engagement."
       },
       {
-        title: "App UI/UX Design",
-        description: "Crafting engaging mobile experiences with a focus on usability, performance, and platform-specific design patterns."
+        title: "Prototyping & Wireframing",
+        description: "Visualizing complex flows with detailed prototypes to ensure seamless functionality before development begins."
       }
     ],
-    Web3: [
+    'Skill Training': [
       {
-        title: "Blockchain Development",
-        description: "We specialize in blockchain technology, developing decentralized applications (DApps), smart contracts, and Web3 integrations."
+        title: "Industry-Ready Programs",
+        description: "Comprehensive training modules designed by experts to master in-demand tech skills and stay ahead of the curve."
       },
       {
-        title: "Smart Contract Audits",
-        description: "Ensuring the security and reliability of your blockchain protocols through rigorous testing and code analysis."
+        title: "Hands-on Workshops",
+        description: "Practical, project-based learning experiences that bridge the gap between theoretical knowledge and real-world application."
       }
     ],
-    ML: [
+    'Machine Learning Engineer': [
       {
-        title: "Machine Learning Models",
-        description: "We leverage advanced machine learning algorithms to provide predictive analytics, natural language processing, and computer vision solutions."
+        title: "Predictive Analytics",
+        description: "Building sophisticated models to forecast trends, allowing you to make data-driven decisions with confidence."
       },
       {
-        title: "Data Science & Analytics",
-        description: "Turning raw data into actionable insights through statistical modeling and deep data exploration."
+        title: "Model Deployment",
+        description: "Seamlessly integrating and deploying machine learning models into production environments for real-time impact."
       }
     ],
-    AI: [
+    'AI Engineer': [
       {
-        title: "AI Development",
-        description: "We build practical AI systems that automate tasks, enhance decision-making, and bring intelligence to your product without the unnecessary hype."
+        title: "AI Integration",
+        description: "Enhancing your existing systems with intelligent features like chatbots, basic automation, and smart recommendations."
       },
       {
-        title: "Generative AI Solutions",
-        description: "Implementing cutting-edge LLMs and generative models to create unique content and interactive experiences."
+        title: "Custom AI Solutions",
+        description: "Developing tailored artificial intelligence systems to solve unique business challenges and optimize operations."
       }
     ],
-    Design: [
+    'Data Scientist': [
       {
-        title: "UI/UX Design",
-        description: "We design intuitive, elegant interfaces backed by smart user flows, making your product easier to use and faster to navigate."
+        title: "Advanced Data Modeling",
+        description: "Uncovering deep insights and hidden patterns within your data to drive strategic business growth."
       },
       {
-        title: "Brand Identity",
-        description: "Creating cohesive visual identities that resonate with your audience and strengthen your market presence."
+        title: "Statistical Analysis",
+        description: "Applying rigorous statistical methods to validate hypotheses and solve complex analytical problems."
       }
     ],
-    Automation: [
+    'Data Analyst': [
       {
-        title: "Workflow Automation",
-        description: "We streamline repetitive tasks and build automated workflows that save time, reduce errors, and keep your operations running smoothly."
+        title: "Data Visualization",
+        description: "Transforming raw data into clear, interactive dashboards using tools like PowerBI and Tableau for easy monitoring."
       },
       {
-        title: "Process Optimization",
-        description: "We analyze your systems and automate the bottlenecks, boosting efficiency and cutting manual work."
+        title: "Business Intelligence",
+        description: "Generating actionable reports that track key performance indicators and operational efficiency."
+      }
+    ],
+    'Data Engineer': [
+      {
+        title: "ETL Pipelines",
+        description: "Constructing robust pipelines to extract, transform, and load data from various sources into centralized warehouses."
+      },
+      {
+        title: "Big Data Infrastructure",
+        description: "Architecting scalable data systems capable of processing and storing massive volumes of information securely."
       }
     ]
   };
@@ -94,15 +113,6 @@ const ServicesWheel = () => {
     if(wheelRef.current) {
         const rotation = index * -(360 / categories.length); 
         wheelRef.current.style.transform = `translateY(-50%) rotate(${rotation}deg)`;
-        
-        // Play dial sound
-        try {
-            const audio = new Audio('/dial_sound.mp3');
-            audio.volume = 0.5;
-            audio.play().catch(e => console.log("Audio play failed (interaction required or file missing):", e));
-        } catch (error) {
-            console.error("Error initializing audio:", error);
-        }
     }
   }, [activeCategory, categories]);
 
@@ -204,6 +214,9 @@ const ServicesWheel = () => {
                     )}
                 </AnimatePresence>
             </div>
+
+            {/* Contact Email */}
+            
 
          </div>
       </div>

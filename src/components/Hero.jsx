@@ -70,7 +70,7 @@ const Hero = () => {
         </motion.p>
 
         {/* CTA Button with Vertical Lines */}
-        <div className="relative group cursor-pointer inline-block">
+        <a href="#contact" className="relative group cursor-pointer inline-block">
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -100,7 +100,7 @@ const Hero = () => {
                  transition={{ repeat: Infinity, duration: 1.5 }}
              />
            </div>
-        </div>
+        </a>
       </div>
     </section>
   );
